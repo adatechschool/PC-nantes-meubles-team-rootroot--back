@@ -15,54 +15,57 @@ class Meubles
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $type = null;
+    private ?string $categoryId = null;
 
     #[ORM\Column]
-    private ?int $prix = null;
+    private ?int $price = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $couleur = null;
+    private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\Column]
+    private ?int $dimensionId = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getCategoryId(): ?string
     {
-        return $this->type;
+        return $this->categoryId;
     }
 
-    public function setType(string $type): self
+    public function setCategoryId(string $categoryId): self
     {
-        $this->type = $type;
+        $this->categoryId = $categoryId;
 
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrice(): ?int
     {
-        return $this->prix;
+        return $this->price;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrice(int $price): self
     {
-        $this->prix = $prix;
+        $this->price = $price;
 
         return $this;
     }
 
-    public function getCouleur(): ?string
+    public function getTitle(): ?string
     {
-        return $this->couleur;
+        return $this->title;
     }
 
-    public function setCouleur(string $couleur): self
+    public function setTitle(string $title): self
     {
-        $this->couleur = $couleur;
+        $this->title = $title;
 
         return $this;
     }
@@ -75,6 +78,18 @@ class Meubles
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDimensionId(): ?int
+    {
+        return $this->dimensionId;
+    }
+
+    public function setDimensionId(int $dimensionId): self
+    {
+        $this->dimensionId = $dimensionId;
 
         return $this;
     }
