@@ -34,7 +34,7 @@ class MeubleController extends AbstractController
     }
 
     #[Route('/post_meuble', name: 'post_meuble', methods: 'POST')]
-    public function new(ManagerRegistry $doctrine, Request $request, LoggerInterface $logger)
+    public function new (ManagerRegistry $doctrine, Request $request, LoggerInterface $logger)
     {
         $entityManager = $doctrine->getManager();
 
@@ -44,7 +44,12 @@ class MeubleController extends AbstractController
         /*if (!is_string($type)) {
         return $this->json(['error' => 'Type must be a string'], Response::HTTP_BAD_REQUEST, [$type]);
         }*/
-        $logger->info($request);
+        //$logger->info($request);
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace($data);
+
+        //$logger->info($data);
+
 
         $meuble->setType($request->request->get('type'));
         $meuble->setPrix($request->request->get('prix'));
