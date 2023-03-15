@@ -39,17 +39,9 @@ class MeubleController extends AbstractController
         $entityManager = $doctrine->getManager();
 
         $meuble = new Meubles();
-        //$type = $request->request->get('type');
 
-        /*if (!is_string($type)) {
-        return $this->json(['error' => 'Type must be a string'], Response::HTTP_BAD_REQUEST, [$type]);
-        }*/
-        //$logger->info($request);
         $data = json_decode($request->getContent(), true);
         $request->request->replace($data);
-
-        //$logger->info($data);
-
 
         $meuble->setType($request->request->get('type'));
         $meuble->setPrix($request->request->get('prix'));
@@ -72,10 +64,20 @@ class MeubleController extends AbstractController
             return $this->json('No project found for id' . $id, 404);
         }
 
-        $meuble->setType($request->request->get('type'));
-        $meuble->setPrix($request->request->get('prix'));
-        $meuble->setCouleur($request->request->get('couleur'));
-        $meuble->setDescription($request->request->get('description'));
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace($data);
+        if($request->request->get('type')){
+            $meuble->setType($request->request->get('type'));
+        }
+        if($request->request->get('prix')){
+            $meuble->setPrix($request->request->get('prix'));
+        }
+        if($request->request->get('couleur')){
+            $meuble->setCouleur($request->request->get('couleur'));
+        }
+        if($request->request->get('description')){
+            $meuble->setDescription($request->request->get('description'));
+        }
         $entityManager->flush();
 
         $data = [
