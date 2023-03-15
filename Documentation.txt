@@ -1,0 +1,127 @@
+
+---DEMARRAGE---
+    Logiciels nécessaires : symfony, mamp/wamp, composer.
+        info:
+            *Attention, il sera peut-être nécessaire d'installer PHP sur votre ordi en pré-requis si 
+            mamp/wamp n'est pas en cours d'utilisation. Et la doc officielle vous dira également 
+            d'installer homebrew pour les mac, c'est nécessaire. 
+
+
+    - install symfony :
+        suivre la doc sur https://symfony.com/doc/current/setup.html
+        info: 
+            *verifiez bien que vous avez la version 8.1 minimum de PHP sur MAMP, si jamais en switchant sur la 8.1 
+            votre local host n'est plus disponible, la méthode la plus simple est d'utiliser wamp. Si malgrès ça, 
+            sa ne marche pas, venez voir Klervy pour verifier vos variable d'environment sur votre OS.
+
+    - install composer :
+        suivre la doc sur https://getcomposer.org/download/
+        info :
+            *si la commande avec sudo ne marche pas enlevez le sudo
+
+---MISE EN PLACE DU PROJET---
+    Après clonage et placement dans le bon repo tapez les commandes suivantes :
+
+    composer install                                            //sert à installer toutes les dépendances
+    bin/console doctrine:database:create                        //sert à créer la database
+    php bin/console doctrine:migrations:migrate                 //rejoue toute la séquence de remplissage de la database
+    symfony server:start                                        //sert à lancer le server symfony
+
+---TUTOS UTILES---
+
+---QUI FAIT QUOI---
+    BIN
+        -console
+            contient les fichiers de commandes permettant, par exemple de vider le cache,update la BDD, lancer les test unitaires ...
+    CONFIG
+        En résumé, le répertoire "config" contient tous les fichiers de configuration nécessaires pour paramétrer une application Symfony.
+        Ces fichiers définissent les bundles installés, la configuration du framework, la configuration de la base de données, les routes,
+        les services, etc
+        
+        -packages
+        Le dossier "packages" d'une application Symfony contient des fichiers de configuration des différents packages utilisés dans 
+        l'application.
+            -framework.yaml
+                ce fichier contient les configurations liées au framework Symfony, comme la configuration de la sécurité, la gestion des 
+                sessions, les formulaires, etc.
+            -routing.yaml
+                ce fichier contient les définitions de routes de l'application. Les routes définissent les URL et les contrôleurs 
+                correspondants qui doivent être appelés lorsqu'un utilisateur accède à une URL particulière.
+            -doctrine.yaml
+                ce fichier contient la configuration de la base de données de l'application. Il définit les paramètres de connexion, 
+                les entités, les associations, etc.
+            -twig.yaml
+                ce fichier contient les configurations pour le moteur de template Twig, qui est utilisé pour générer des pages HTML.
+            -packages/prod/*
+                ce répertoire contient des fichiers de configuration spécifiques à l'environnement de production. Par exemple, il peut 
+                contenir des configurations de cache ou de logs.
+            -packages/dev/*
+                ce répertoire contient des fichiers de configuration spécifiques à l'environnement de développement. Par exemple, il peut 
+                contenir des configurations de débogage.
+        -routes
+        Le dossier "routes" d'une application Symfony contient les fichiers qui définissent les URL que l'utilisateur peut utiliser pour 
+        accéder aux différentes pages de l'application. Chaque route est définie avec un nom, une URL et un contrôleur.
+            -api_platform.yaml
+                permet de configurer des options spécifiques à API Platform, comme la définition des entités, les filtres, la pagination, 
+                la gestion des erreurs, etc.
+            -framework.yaml
+                Il contient les configurations liées aux fonctionnalités de base de Symfony, telles que la gestion des sessions, 
+                la sécurité, les formulaires, le traducteur, le profiler, le cache, etc
+        
+        -bundles.php 
+                ce fichier liste les bundles installés dans l'application. Les bundles sont des extensions qui ajoutent des 
+                fonctionnalités à l'application.
+        -preload.php
+            est un fichier personnalisé utilisé pour pré-charger les classes de l'application en mode production et améliorer les 
+            performances. Son contenu consiste simplement à vérifier si le fichier de pré-chargement des classes existe et à le charger 
+            s'il est présent.
+        -routes.yaml
+            Le fichier "routes.yaml" est un fichier de configuration utilisé par le framework Symfony pour définir les différentes routes 
+            de l'application. Une route est une correspondance entre une URL et une action qui doit être exécutée lorsque cette URL est 
+            appelée.
+        -services.yaml
+            ce fichier contient la configuration des services de l'application. Les services sont des objets qui peuvent être injectés 
+            dans les contrôleurs et les autres classes de l'application.
+    MIGRATIONS
+        Les migrations sont des scripts qui permettent de mettre à jour la structure de la base de données lorsque le schéma de la base 
+        de données évolue, ce qui facilite le travail en équipe et assure que chaque membre de l'équipe travaille avec la même structure 
+        de base de données.
+    PUBLIC
+        En résumé, le dossier "public" est le dossier "web root" de l'application Symfony, qui contient les fichiers statiques (images, 
+        CSS, JavaScript, etc.) qui sont servis directement au client. Ce dossier contient également le point d'entrée de l'application et 
+        les fichiers de configuration pour la réécriture d'URL.
+        Mais dans le cadre de l'API il ne sert a pas à grand chose
+    SCR
+        -DataFixtures
+            En résumé, les Data Fixtures sont une fonctionnalité de Doctrine qui permet de pré-remplir une base de données avec des 
+            données de test. Les classes de Data Fixtures sont stockées dans le dossier "src/DataFixtures" et sont exécutées à l'aide 
+            de la console Symfony pour remplir la base de données avec des données de test.
+        -Entity
+            un dossier "Entity" qui contient les entités de doctrine pour la gestion des données.
+        -Repository
+            En résumé, les Repositories sont une fonctionnalité de Doctrine qui permet de gérer la persistance des objets dans la base de 
+            données.        
+        -Kernel.php
+            Le Kernel est responsable de la gestion des requêtes HTTP, de la configuration de l'application et de la gestion des 
+            différents événements qui se produisent tout au long du cycle de vie de l'application.
+    TEMPLATES
+        -base.html.twig
+            En résumé, le dossier "templates" contient les fichiers de templates utilisés pour afficher les pages web de l'application 
+            Symfony. Le fichier "base.html.twig" est un fichier de template qui définit la structure de base de la page web de 
+            l'application et est généralement utilisé comme le layout principal. Les fichiers de template sont écrits en utilisant la 
+            syntaxe de Twig et sont associés à des routes dans le fichier "routes.yaml".
+    VAR
+        Lorsqu'une application Symfony est exécutée, elle génère des fichiers mis en cache pour accélérer les temps de réponse. 
+        Ces fichiers mis en cache sont stockés dans le dossier "cache/dev" pendant le développement de l'application.
+    VENDOR
+        Le dossier "vendor" est un dossier standard dans une application Symfony qui contient toutes les dépendances tierces installées 
+        par Composer
+    .env
+        le fichier ".env" contient des variables d'environnement pour votre application Symfony
+    .gitignore   
+        le fichier ".gitignore" indique à Git quels fichiers ignorer
+    composer.json/composer.lock
+        "composer.json" et "composer.lock" sont des fichiers de configuration Composer qui définissent et enregistrent les dépendances de 
+        votre application
+    symfony.lock 
+        "symfony.lock" enregistre les versions exactes des packages Symfony utilisés dans votre application.
