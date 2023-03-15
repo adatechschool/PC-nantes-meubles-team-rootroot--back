@@ -1,6 +1,8 @@
 
 ---DEMARRAGE---
-    Logiciels nécessaires : symfony, mamp/wamp, composer
+    Logiciels nécessaires : symfony, mamp/wamp, composer.
+                            Attention, il sera peut-être nécessaire d'installer PHP sur votre ordi en pré-requis si mamp/wamp n'est pas en cours d'utilisation. Et la doc officielle vous dira également d'installer homebrew pour les mac, c'est nécessaire. 
+
 
     - install symfony :
         suivre la doc sur https://symfony.com/doc/current/setup.html
