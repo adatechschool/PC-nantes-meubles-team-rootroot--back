@@ -18,13 +18,14 @@
 
 ---MISE EN PLACE DU PROJET---
     Après clonage et placement dans le bon repo tapez les commandes suivantes :
+
     composer install                                            //sert à installer toutes les dépendances
     bin/console doctrine:database:create                        //sert à créer la database
     php bin/console doctrine:migrations:migrate                 //rejoue toute la séquence de remplissage de la database
     symfony server:start                                        //sert à lancer le server symfony
 
 ---TUTOS UTILES---
-    
+
 ---QUI FAIT QUOI---
     BIN
         -console
@@ -94,7 +95,6 @@
             de la console Symfony pour remplir la base de données avec des données de test.
         -Entity
             un dossier "Entity" qui contient les entités de doctrine pour la gestion des données.
-            En gros les setters et getters
         -Repository
             En résumé, les Repositories sont une fonctionnalité de Doctrine qui permet de gérer la persistance des objets dans la base de 
             données.        
