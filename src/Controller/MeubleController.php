@@ -14,24 +14,51 @@ use Psr\Log\LoggerInterface;
 
 class MeubleController extends AbstractController
 {
-    #[Route('/get_meubles', name: 'get_meubles', methods: 'GET')]
+    #[Route('/get_all_data_meubles', name: 'get_meubles', methods: 'GET')]
     public function index(ManagerRegistry $doctrine): Response
     {
-        $products = $doctrine
+        $meubles = $doctrine
             ->getRepository(Meubles::class)
             ->findAll();
 
         $data = [];
 
-        foreach ($products as $product) {
+        foreach ($meubles as $meuble) {
             $data[] = [
-                'id' => $product->getId(),
-                'type' => $product->getType(),
-                'prix' => $product->getPrix(),
+                'id' => $meuble ->getId(),
+                'description' => $meuble ->getDescription(),
+                'title' => $meuble ->getTitle(),
+                'dimension' => $meuble ->getDimension(),
+                'color'=> $meuble ->getColor(),
+                'material'=> $meuble ->getMaterial(),
+                'picture'=> $meuble ->getPicture()
             ];
         }
         return $this->json($data);
     }
+
+    #[Route('/get_all_card_meubles', name: 'get_card', methods: 'GET')]
+    public function getCard(ManagerRegistry $doctrine): Response
+    {
+        $meubles = $doctrine
+            ->getRepository(Meubles::class)
+            ->findAll();
+
+        $data = [];
+
+        foreach ($meubles as $meuble) {
+            $data[] = [
+                'id' => $meuble ->getId(),
+                'title' => $meuble ->getTitle(),
+                'picture'=> $meuble ->getPicture(),
+                //'category'=> $meuble ->getCategory(),
+                'price'=> $meuble ->getPrice()
+            ];
+        }
+        return $this->json($data);
+    }
+
+
 
     #[Route('/post_meuble', name: 'post_meuble', methods: 'POST')]
     public function new (ManagerRegistry $doctrine, Request $request, LoggerInterface $logger)
@@ -82,49 +109,34 @@ class MeubleController extends AbstractController
 
         if (isset($parsedParams['description'])) {
             $meuble->setDescription($parsedParams['description']);
-            $updatesParameters+=' description';
         }
         if (isset($parsedParams['price'])) {
             $meuble->setPrice($parsedParams['price']);
-            $updatesParameters+=' price';
         }
         if (isset($parsedParams['title'])) {
             $meuble->setTitle($parsedParams['title']);
-            $updatesParameters+=' title';
         }
         if (isset($parsedParams['picture'])) {
             $meuble->setPicture($parsedParams['picture']);
-            $updatesParameters+=' pictures';
         }
         if (isset($parsedParams['categorie'])) {
             $meuble->setCategories($parsedParams['categorie']);
-            $updatesParameters+=' categorie';
         }
         if (isset($parsedParams['dimension'])) {
             $meuble->setDimension($parsedParams['dimension']);
-            $updatesParameters+=' dimension';
         }
         if (isset($parsedParams['color'])) {
             $meuble->setColor($parsedParams['color']);
-            $updatesParameters+=' color';
         }
         if (isset($parsedParams['material'])) {
             $meuble->setMaterial($parsedParams['material']);
-            $updatesParameters+=' material';
         }
     
         // Save the updated entity to the database
         $entityManager->flush();
     
-        // Return a JSON response with the updated Meubles entity's data
-        $data = [
-            'id' => $meuble->getId(),
-            'type' => $meuble->getType(),
-            'prix' => $meuble->getPrix(),
-            'couleur' => $meuble->getCouleur(),
-            'description' => $meuble->getDescription(),
-        ];
-        return $this->json('Succes updating' .$updatesParameters);
+        // Return a JSON response with the updated Meubles
+        return $this->json('Succes updating');
     }
 
     #[Route('/delete_meuble/{id}', name: 'delete_meuble', methods: 'DELETE')]

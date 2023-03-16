@@ -106,12 +106,12 @@ class Meubles
         return $this;
     }
 
-    public function getDimension(): ?int
+    public function getDimension(): ?string
     {
         return $this->dimension;
     }
 
-    public function setDimension(int $dimension): self
+    public function setDimension(string $dimension): self
     {
         $this->dimension = $dimension;
 
