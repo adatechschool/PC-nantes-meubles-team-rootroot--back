@@ -43,10 +43,14 @@ class MeubleController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $request->request->replace($data);
 
-        $meuble->setType($request->request->get('type'));
-        $meuble->setPrix($request->request->get('prix'));
-        $meuble->setCouleur($request->request->get('couleur'));
+        $meuble->setPrice($request->request->get('price'));
         $meuble->setDescription($request->request->get('description'));
+        $meuble->setTitle($request->request->get('title'));
+        $meuble->setDimension($request->request->get('dimension'));
+        $meuble->setColor($request->request->get('color'));
+        $meuble->setMaterial($request->request->get('material'));
+        $meuble->setPicture($request->request->get('picture'));
+
 
         $entityManager->persist($meuble);
         $entityManager->flush();
@@ -54,33 +58,65 @@ class MeubleController extends AbstractController
         return $this->json('Created new meuble successfully with id ' . $meuble->getId());
     }
 
-    /*#[Route('/put_meuble/{id}', name: 'put_meuble', methods: 'PUT')]
-    public function edit(ManagerRegistry $doctrine, Request $request, int $id): Response
+    #[Route('/put_meuble/{id}/{params}', name:'put_meuble', methods:'PUT', requirements:['params'=>'.+'])]
+    public function edit(ManagerRegistry $doctrine, Request $request, int $id, $params): Response
     {
+        // Get the Doctrine entity manager
         $entityManager = $doctrine->getManager();
+    
+        // Find the Meubles entity with the given ID
         $meuble = $entityManager->getRepository(Meubles::class)->find($id);
+    
+        // Parse the parameters in the {params} wildcard
+        $parsedParams = [];
+        foreach (explode('/', $params) as $param) {
+            // Split each parameter into key/value pairs
+            list($key, $value) = explode('=', $param);
+    
+            // Store the key/value pairs in an array
+            $parsedParams[$key] = $value;
+        }
+    
+        // Update the Meubles entity with the parsed parameters, if they exist
+        $updatesParameters='';
 
-        if (!$meuble) {
-            return $this->json('No project found for id' . $id, 404);
+        if (isset($parsedParams['description'])) {
+            $meuble->setDescription($parsedParams['description']);
+            $updatesParameters+=' description';
         }
-
-        $data = json_decode($request->getContent(), true);
-        $request->request->replace($data);
-
-        if($request->request->get('type')){
-            $meuble->setType($request->request->get('type'));
+        if (isset($parsedParams['price'])) {
+            $meuble->setPrice($parsedParams['price']);
+            $updatesParameters+=' price';
         }
-        if($request->request->get('prix')){
-            $meuble->setPrix($request->request->get('prix'));
+        if (isset($parsedParams['title'])) {
+            $meuble->setTitle($parsedParams['title']);
+            $updatesParameters+=' title';
         }
-        if($request->request->get('couleur')){
-            $meuble->setCouleur($request->request->get('couleur'));
+        if (isset($parsedParams['picture'])) {
+            $meuble->setPicture($parsedParams['picture']);
+            $updatesParameters+=' pictures';
         }
-        if($request->request->get('description')){
-            $meuble->setDescription($request->request->get('description'));
+        if (isset($parsedParams['categorie'])) {
+            $meuble->setCategories($parsedParams['categorie']);
+            $updatesParameters+=' categorie';
         }
+        if (isset($parsedParams['dimension'])) {
+            $meuble->setDimension($parsedParams['dimension']);
+            $updatesParameters+=' dimension';
+        }
+        if (isset($parsedParams['color'])) {
+            $meuble->setColor($parsedParams['color']);
+            $updatesParameters+=' color';
+        }
+        if (isset($parsedParams['material'])) {
+            $meuble->setMaterial($parsedParams['material']);
+            $updatesParameters+=' material';
+        }
+    
+        // Save the updated entity to the database
         $entityManager->flush();
-
+    
+        // Return a JSON response with the updated Meubles entity's data
         $data = [
             'id' => $meuble->getId(),
             'type' => $meuble->getType(),
@@ -88,9 +124,8 @@ class MeubleController extends AbstractController
             'couleur' => $meuble->getCouleur(),
             'description' => $meuble->getDescription(),
         ];
-
-        return $this->json($data);
-    }*/
+        return $this->json('Succes updating' .$updatesParameters);
+    }
 
     #[Route('/delete_meuble/{id}', name: 'delete_meuble', methods: 'DELETE')]
     public function delete(ManagerRegistry $doctrine, int $id): Response
@@ -105,49 +140,7 @@ class MeubleController extends AbstractController
         $entityManager->remove($meuble);
         $entityManager->flush();
 
-        return $this->json('Deleted a project successfully with id ' . $id);
+        return $this->json('Deleted a furniture successfully with id ' . $id);
     }
 
-    //TEST QUERY
-    #[Route('/put_meuble/{id}/{type}/{prix}/{couleur}/{description}', name: 'put_meuble', methods: 'PUT')]
-    public function edit(ManagerRegistry $doctrine, Request $request, int $id,$type,$prix,$couleur,$description): Response
-    {
-        //$entityManager = $doctrine->getManager();
-        //$meuble = $entityManager->getRepository(Meubles::class)->find($id);
-        $type=dump($type);
-        $prix=dump($prix);
-        $couleur=dump($couleur);
-        $description= dump($description);
-        //$data = json_decode($request->getContent(), true);
-        //$request->request->replace($data);
-
-        $entityManager = $doctrine->getManager();
-        $meuble = $entityManager->getRepository(Meubles::class)->find($id);
-
-        if($type){
-            $meuble->setType($type);
-        }
-        if($prix){
-            $meuble->setPrix($prix);
-        }
-        if($couleur){
-            $meuble->setCouleur($couleur);
-        }
-        if($description){
-            $meuble->setDescription($description);
-        }
-
-
-        $entityManager->flush();
-
-        $data = [
-            'id' => $meuble->getId(),
-            'type' => $meuble->getType(),
-            'prix' => $meuble->getPrix(),
-            'couleur' => $meuble->getCouleur(),
-            'description' => $meuble->getDescription(),
-        ];
-
-        return $this->json($data);
-    }
 }
