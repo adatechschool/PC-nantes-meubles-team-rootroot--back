@@ -125,4 +125,12 @@
         votre application
     symfony.lock 
         "symfony.lock" enregistre les versions exactes des packages Symfony utilisés dans votre application.
-        
+
+---MIGRATION--- ADDING TABLES/ENTITIES IN YOU DB
+
+1. Make sure that you create DataBase "kalaxy" in your mamp/wamp database 
+2. make sure that your path in the folder "env" (line 27) is correct according the versions mamp/wamp the port can be different 
+3. To start migration please use following command lines 
+    -> php bin/console make:migration
+    -> php bin/console doctrine:migrations:migrate
+4. You will have in you DB tables that are empty 
