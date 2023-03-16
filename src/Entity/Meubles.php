@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MeublesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,8 +16,10 @@ class Meubles
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $categoryId = null;
+
+    #[ORM\ManyToOne(inversedBy: 'categoryId')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categories $category = null;
 
     #[ORM\Column]
     private ?int $price = null;
@@ -27,24 +31,44 @@ class Meubles
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $dimensionId = null;
+    private ?string $dimension = null;
+
+    #[ORM\ManyToMany(targetEntity: Colors::class, mappedBy: 'meuble')]
+    private Collection $meuble_id;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Color = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Material = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Picture = null;
+
+    public function __construct()
+    {
+        $this->meuble_id = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCategoryId(): ?string
+
+    public function getCategory(): ?Categories
     {
-        return $this->categoryId;
+        return $this->category;
     }
 
-    public function setCategoryId(string $categoryId): self
+    public function setCategory(?Categories $category): self
     {
-        $this->categoryId = $categoryId;
+        $this->category = $category;
 
         return $this;
     }
+
 
     public function getPrice(): ?int
     {
@@ -82,15 +106,79 @@ class Meubles
         return $this;
     }
 
-    public function getDimensionId(): ?int
+    public function getDimension(): ?int
     {
-        return $this->dimensionId;
+        return $this->dimension;
     }
 
-    public function setDimensionId(int $dimensionId): self
+    public function setDimension(int $dimension): self
     {
-        $this->dimensionId = $dimensionId;
+        $this->dimension = $dimension;
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Colors>
+     */
+    public function getMeubleId(): Collection
+    {
+        return $this->meuble_id;
+    }
+
+    public function addMeubleId(Colors $meubleId): self
+    {
+        if (!$this->meuble_id->contains($meubleId)) {
+            $this->meuble_id->add($meubleId);
+            $meubleId->addMeuble($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeubleId(Colors $meubleId): self
+    {
+        if ($this->meuble_id->removeElement($meubleId)) {
+            $meubleId->removeMeuble($this);
+        }
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->Color;
+    }
+
+    public function setColor(?string $Color): self
+    {
+        $this->Color = $Color;
+
+        return $this;
+    }
+
+    public function getMaterial(): ?string
+    {
+        return $this->Material;
+    }
+
+    public function setMaterial(?string $Material): self
+    {
+        $this->Material = $Material;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->Picture;
+    }
+
+    public function setPicture(string $Picture): self
+    {
+        $this->Picture = $Picture;
+
+        return $this;
+    }
+
 }

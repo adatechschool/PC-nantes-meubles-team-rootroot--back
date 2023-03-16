@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ColorsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ColorsRepository::class)]
@@ -18,8 +20,13 @@ class Colors
     #[ORM\Column(length: 255)]
     private ?string $color = null;
 
-    #[ORM\Column]
-    private ?int $meubleId = null;
+    #[ORM\ManyToMany(targetEntity: Meubles::class, inversedBy: 'meuble_id')]
+    private Collection $meuble;
+
+    public function __construct()
+    {
+        $this->meuble = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -38,14 +45,26 @@ class Colors
         return $this;
     }
 
-    public function getMeubleId(): ?int
+    /**
+     * @return Collection<int, Meubles>
+     */
+    public function getMeuble(): Collection
     {
-        return $this->meubleId;
+        return $this->meuble;
     }
 
-    public function setMeubleId(int $meubleId): self
+    public function addMeuble(Meubles $meuble): self
     {
-        $this->meubleId = $meubleId;
+        if (!$this->meuble->contains($meuble)) {
+            $this->meuble->add($meuble);
+        }
+
+        return $this;
+    }
+
+    public function removeMeuble(Meubles $meuble): self
+    {
+        $this->meuble->removeElement($meuble);
 
         return $this;
     }

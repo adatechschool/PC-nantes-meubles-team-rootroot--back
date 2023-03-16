@@ -15,8 +15,8 @@ class ColorsFixtures extends Fixture
         $colorList = ['Red', 'White', 'Black', 'Gray', 'Dark wood', 'Light wood'];
         for ($i = 0; $i < count($colorList); $i++) {
             $color = new Colors();
-            $color->setColor($colorList[$i])
-                ->setMeubleId(1);
+            $color->setColor($colorList[$i]);
+
 
             $manager->persist($color);
         }

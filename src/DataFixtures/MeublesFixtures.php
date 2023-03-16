@@ -15,10 +15,10 @@ class MeublesFixtures extends Fixture
 
         for ($i = 1; $i <= 5; $i++) {
             $meuble = new Meubles();
-            $meuble->setCategoryId($i)
+            $meuble->setCategory($i)
                 ->setPrice(130)
                 ->setTitle("Armoire de Mamie")
-                ->setDescription("c tré bo")
+                ->setDescription("Magnifique armoire en merisier")
                 ->setDimensionId($i);
             $manager->persist($meuble);
         }
