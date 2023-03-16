@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MaterialsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MaterialsRepository::class)]
-#[ApiResource]
 class Materials
 {
     #[ORM\Id]
@@ -18,8 +18,13 @@ class Materials
     #[ORM\Column(length: 255)]
     private ?string $material = null;
 
-    #[ORM\Column]
-    private ?int $meubleId = null;
+    #[ORM\ManyToMany(targetEntity: Furniture::class, inversedBy: 'materials')]
+    private Collection $furniture;
+
+    public function __construct()
+    {
+        $this->furniture = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -38,14 +43,26 @@ class Materials
         return $this;
     }
 
-    public function getMeubleId(): ?int
+    /**
+     * @return Collection<int, Furniture>
+     */
+    public function getFurniture(): Collection
     {
-        return $this->meubleId;
+        return $this->furniture;
     }
 
-    public function setMeubleId(int $meubleId): self
+    public function addFurniture(Furniture $furniture): self
     {
-        $this->meubleId = $meubleId;
+        if (!$this->furniture->contains($furniture)) {
+            $this->furniture->add($furniture);
+        }
+
+        return $this;
+    }
+
+    public function removeFurniture(Furniture $furniture): self
+    {
+        $this->furniture->removeElement($furniture);
 
         return $this;
     }

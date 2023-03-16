@@ -125,3 +125,4 @@
         votre application
     symfony.lock 
         "symfony.lock" enregistre les versions exactes des packages Symfony utilisés dans votre application.
+        
