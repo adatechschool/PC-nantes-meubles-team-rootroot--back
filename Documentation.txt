@@ -25,7 +25,8 @@
     bin/console doctrine:database:create                        //sert à créer la database
     php bin/console doctrine:migrations:migrate                 //rejoue toute la séquence de remplissage de la database
     symfony server:start                                        //sert à lancer le server symfony
-
+    
+    si pb de connection demander a klervy si pb de root/port/erreur chelou qui parlent de ssl (composer require symfony/monolog-bundle)
 
 ---TUTOS UTILES---
     
@@ -34,6 +35,7 @@
     Utiliser des database liaison : https://stackoverflow.com/questions/18357159/how-to-perform-a-join-query-using-symfony-and-doctrine-query-builder
                                     https://symfony.com/doc/current/doctrine/associations.html
     json_decode : https://stackoverflow.com/questions/46850247/how-to-handle-correctly-json-request-in-symfony
+    routing :https://symfony.com/doc/6.3/routing.html#route-parameters
 
 ---QUI FAIT QUOI---
     BIN
