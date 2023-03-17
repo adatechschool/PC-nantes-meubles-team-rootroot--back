@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+// Importing the ManagerRegistry and Request classes
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Meubles;
@@ -14,7 +15,7 @@ use Psr\Log\LoggerInterface;
 
 class MeubleController extends AbstractController
 {
-    #[Route('/get_all_data_meubles', name: 'get_meubles', methods: 'GET')]
+    #[Route('/get_all_data_meuble', name: 'get_meuble', methods: 'GET')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $meubles = $doctrine
@@ -26,18 +27,21 @@ class MeubleController extends AbstractController
         foreach ($meubles as $meuble) {
             $data[] = [
                 'id' => $meuble ->getId(),
-                'description' => $meuble ->getDescription(),
                 'title' => $meuble ->getTitle(),
+                'category' => $meuble ->getCategory(),
+                'price' => $meuble ->getPrice(),
                 'dimension' => $meuble ->getDimension(),
                 'color'=> $meuble ->getColor(),
                 'material'=> $meuble ->getMaterial(),
-                'picture'=> $meuble ->getPicture()
+                'status'=> $meuble ->isStatus(),
+                'picture'=> $meuble ->getPicture(),
+                'description' => $meuble ->getDescription(),
             ];
         }
         return $this->json($data);
     }
 
-    #[Route('/get_all_card_meubles', name: 'get_card', methods: 'GET')]
+    #[Route('/get_all_card_meuble', name: 'get_card', methods: 'GET')]
     public function getCard(ManagerRegistry $doctrine): Response
     {
         $meubles = $doctrine
@@ -51,7 +55,7 @@ class MeubleController extends AbstractController
                 'id' => $meuble ->getId(),
                 'title' => $meuble ->getTitle(),
                 'picture'=> $meuble ->getPicture(),
-                //'category'=> $meuble ->getCategory(),
+                'category'=> $meuble ->getCategory(),
                 'price'=> $meuble ->getPrice()
             ];
         }
@@ -70,13 +74,15 @@ class MeubleController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $request->request->replace($data);
 
-        $meuble->setPrice($request->request->get('price'));
-        $meuble->setDescription($request->request->get('description'));
         $meuble->setTitle($request->request->get('title'));
+        $meuble->setCategory($request->request->get('category'));
+        $meuble->setPrice($request->request->get('price'));
         $meuble->setDimension($request->request->get('dimension'));
         $meuble->setColor($request->request->get('color'));
         $meuble->setMaterial($request->request->get('material'));
+        $meuble->setStatus($request->request->get('status'));
         $meuble->setPicture($request->request->get('picture'));
+        $meuble->setDescription($request->request->get('description'));
 
 
         $entityManager->persist($meuble);
@@ -105,22 +111,15 @@ class MeubleController extends AbstractController
         }
     
         // Update the Meubles entity with the parsed parameters, if they exist
-        $updatesParameters='';
 
-        if (isset($parsedParams['description'])) {
-            $meuble->setDescription($parsedParams['description']);
-        }
-        if (isset($parsedParams['price'])) {
-            $meuble->setPrice($parsedParams['price']);
-        }
         if (isset($parsedParams['title'])) {
             $meuble->setTitle($parsedParams['title']);
         }
-        if (isset($parsedParams['picture'])) {
-            $meuble->setPicture($parsedParams['picture']);
+        if (isset($parsedParams['category'])) {
+            $meuble->setCategory($parsedParams['category']);
         }
-        if (isset($parsedParams['categorie'])) {
-            $meuble->setCategories($parsedParams['categorie']);
+        if (isset($parsedParams['price'])) {
+            $meuble->setPrice($parsedParams['price']);
         }
         if (isset($parsedParams['dimension'])) {
             $meuble->setDimension($parsedParams['dimension']);
@@ -130,6 +129,15 @@ class MeubleController extends AbstractController
         }
         if (isset($parsedParams['material'])) {
             $meuble->setMaterial($parsedParams['material']);
+        }
+        if (isset($parsedParams['status'])) {
+            $meuble->setStatus($parsedParams['status']);
+        }
+        if (isset($parsedParams['picture'])) {
+            $meuble->setPicture($parsedParams['picture']);
+        }
+        if (isset($parsedParams['description'])) {
+            $meuble->setDescription($parsedParams['description']);
         }
     
         // Save the updated entity to the database

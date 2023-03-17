@@ -26,7 +26,14 @@
     php bin/console doctrine:migrations:migrate                 //rejoue toute la séquence de remplissage de la database
     symfony server:start                                        //sert à lancer le server symfony
 
+
 ---TUTOS UTILES---
+    
+    Faire une API rest symfony : https://www.binaryboxtuts.com/php-tutorials/how-to-make-symfony-6-rest-api/
+    Avoir des param url : https://codereviewvideos.com/course/symfony-basics/video/how-to-get-the-request-query-parameters-in-symfony
+    Utiliser des database liaison : https://stackoverflow.com/questions/18357159/how-to-perform-a-join-query-using-symfony-and-doctrine-query-builder
+                                    https://symfony.com/doc/current/doctrine/associations.html
+    json_decode : https://stackoverflow.com/questions/46850247/how-to-handle-correctly-json-request-in-symfony
 
 ---QUI FAIT QUOI---
     BIN

@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MeublesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+//ORM explaination An ORM (Object-Relational Mapping) is like a translator between a program and a database.
+// It helps the program talk to the database by translating the information so both can understand each other 
+//without any confusion or misunderstandings.
+
+//this file containt the meuble class and all it's setters/getters
 #[ORM\Entity(repositoryClass: MeublesRepository::class)]
+#[ApiResource]
 class Meubles
 {
     #[ORM\Id]
@@ -16,70 +21,36 @@ class Meubles
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
 
-    #[ORM\ManyToOne(inversedBy: 'categoryId')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Categories $category = null;
+    #[ORM\Column(length: 255)]
+    private ?string $category = null;
 
     #[ORM\Column]
     private ?int $price = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
-
-    #[ORM\Column]
     private ?string $dimension = null;
 
-    #[ORM\ManyToMany(targetEntity: Colors::class, mappedBy: 'meuble')]
-    private Collection $meuble_id;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Color = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Material = null;
+    #[ORM\Column(length: 255)]
+    private ?string $color = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Picture = null;
+    private ?string $material = null;
 
-    public function __construct()
-    {
-        $this->meuble_id = new ArrayCollection();
-    }
+    #[ORM\Column]
+    private ?bool $status = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $picture = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $description = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-
-    public function getCategory(): ?Categories
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Categories $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-
-    public function getPrice(): ?int
-    {
-        return $this->price;
-    }
-
-    public function setPrice(int $price): self
-    {
-        $this->price = $price;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -94,14 +65,26 @@ class Meubles
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getCategory(): ?string
     {
-        return $this->description;
+        return $this->category;
     }
 
-    public function setDescription(?string $description): self
+    public function setCategory(string $category): self
     {
-        $this->description = $description;
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
@@ -118,67 +101,63 @@ class Meubles
         return $this;
     }
 
-    /**
-     * @return Collection<int, Colors>
-     */
-    public function getMeubleId(): Collection
-    {
-        return $this->meuble_id;
-    }
-
-    public function addMeubleId(Colors $meubleId): self
-    {
-        if (!$this->meuble_id->contains($meubleId)) {
-            $this->meuble_id->add($meubleId);
-            $meubleId->addMeuble($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMeubleId(Colors $meubleId): self
-    {
-        if ($this->meuble_id->removeElement($meubleId)) {
-            $meubleId->removeMeuble($this);
-        }
-
-        return $this;
-    }
-
     public function getColor(): ?string
     {
-        return $this->Color;
+        return $this->color;
     }
 
-    public function setColor(?string $Color): self
+    public function setColor(string $color): self
     {
-        $this->Color = $Color;
+        $this->color = $color;
 
         return $this;
     }
 
     public function getMaterial(): ?string
     {
-        return $this->Material;
+        return $this->material;
     }
 
-    public function setMaterial(?string $Material): self
+    public function setMaterial(string $material): self
     {
-        $this->Material = $Material;
+        $this->material = $material;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
 
     public function getPicture(): ?string
     {
-        return $this->Picture;
+        return $this->picture;
     }
 
-    public function setPicture(string $Picture): self
+    public function setPicture(string $picture): self
     {
-        $this->Picture = $Picture;
+        $this->picture = $picture;
 
         return $this;
     }
 
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 }
