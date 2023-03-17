@@ -167,7 +167,7 @@ class MeubleController extends AbstractController
         // Return a JSON response with the updated Meubles
         return $this->json('Succes updating');
     }
-
+    
     #[Route('/delete_meuble/{id}', name: 'delete_meuble', methods: 'DELETE')]
     public function delete(ManagerRegistry $doctrine, int $id): Response
     {
