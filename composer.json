@@ -81,7 +81,6 @@
         }
     },
     "require-dev": {
-        "fzaninotto/faker": "^1.5",
         "symfony/maker-bundle": "^1.48"
     }
 }
