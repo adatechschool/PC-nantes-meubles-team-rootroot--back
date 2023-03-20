@@ -96,10 +96,6 @@ class ComposerStaticInite8f0d735d6c78e2f0ec901d86ef83ca7
         array (
             'Monolog\\' => 8,
         ),
-        'F' => 
-        array (
-            'Faker\\' => 6,
-        ),
         'D' => 
         array (
             'Doctrine\\SqlFormatter\\' => 22,
@@ -366,10 +362,6 @@ class ComposerStaticInite8f0d735d6c78e2f0ec901d86ef83ca7
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
-        ),
-        'Faker\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
         ),
         'Doctrine\\SqlFormatter\\' => 
         array (

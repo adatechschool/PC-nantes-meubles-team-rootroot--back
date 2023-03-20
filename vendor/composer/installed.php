@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b895251739d77db347274d3d81367d670ea4583f',
+        'reference' => '8669f391e3b0e4355425e81ce38948f03e803a27',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b895251739d77db347274d3d81367d670ea4583f',
+            'reference' => '8669f391e3b0e4355425e81ce38948f03e803a27',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -189,15 +189,6 @@
             'install_path' => __DIR__ . '/../doctrine/sql-formatter',
             'aliases' => array(),
             'dev_requirement' => false,
-        ),
-        'fzaninotto/faker' => array(
-            'pretty_version' => 'v1.5.0',
-            'version' => '1.5.0.0',
-            'reference' => 'd0190b156bcca848d401fb80f31f504f37141c8d',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../fzaninotto/faker',
-            'aliases' => array(),
-            'dev_requirement' => true,
         ),
         'monolog/monolog' => array(
             'pretty_version' => '3.3.1',
