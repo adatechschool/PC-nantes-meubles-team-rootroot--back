@@ -22,7 +22,6 @@
     Après clonage et placement dans le bon repo tapez les commandes suivantes :
 
     composer install                                            //sert à installer toutes les dépendances
-    Make sure that your path in the folder "env" (line 27) is correct according the versions mamp/wamp the port can be different 
     bin/console doctrine:database:create                        //sert à créer la database
     php bin/console doctrine:migrations:migrate                 //rejoue toute la séquence de remplissage de la database
     importer la database pour avoir les entrées
