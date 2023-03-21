@@ -21,7 +21,6 @@
         "symfony/dotenv": "6.2.*",
         "symfony/expression-language": "6.2.*",
         "symfony/flex": "^2",
-        "symfony/form": "6.2.*",
         "symfony/framework-bundle": "6.2.*",
         "symfony/monolog-bundle": "^3.8",
         "symfony/property-access": "6.2.*",
@@ -31,8 +30,7 @@
         "symfony/serializer": "6.2.*",
         "symfony/twig-bundle": "6.2.*",
         "symfony/validator": "6.2.*",
-        "symfony/yaml": "6.2.*",
-        "symfonycasts/verify-email-bundle": "^1.13"
+        "symfony/yaml": "6.2.*"
     },
     "config": {
         "allow-plugins": {
@@ -83,8 +81,6 @@
         }
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.48",
-        "symfony/stopwatch": "6.2.*",
-        "symfony/web-profiler-bundle": "6.2.*"
+        "symfony/maker-bundle": "^1.48"
     }
 }
