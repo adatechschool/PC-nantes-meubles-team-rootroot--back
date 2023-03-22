@@ -20,10 +20,10 @@ use Psr\Log\LoggerInterface;
 class MeubleController extends AbstractController
 {
     // Route that returns all data from the Meubles entity as JSON
-    #[Route('/get_all_data_meuble', name: 'get_meuble', methods: 'GET')]
-    public function index(ManagerRegistry $doctrine): Response
+    #[Route('/get_all_meuble', name: 'get_meubles', methods: 'GET')]
+    public function getMeubles(ManagerRegistry $doctrine): Response
     {
-      
+        // Get all Meubles entities from the database
         $meubles = $doctrine
             ->getRepository(Meubles::class)
             ->findAll();
@@ -31,24 +31,25 @@ class MeubleController extends AbstractController
         // Initialize an empty array to store data for each Meubles entity
         $data = [];
 
-        // Loop through each Meubles entity and add its data to the $data array
+        // Loop through each Meubles entity and add its data to the $data array, but only specific fields
         foreach ($meubles as $meuble) {
             $data[] = [
                 'id' => $meuble ->getId(),
                 'title' => $meuble ->getTitle(),
-                'category' => $meuble ->getCategory(),
-                'price' => $meuble ->getPrice(),
-                'dimension' => $meuble ->getDimension(),
-                'color'=> $meuble ->getColor(),
-                'material'=> $meuble ->getMaterial(),
-                'status'=> $meuble ->isStatus(),
                 'picture'=> $meuble ->getPicture(),
-                'description' => $meuble ->getDescription(),
+                'category'=> $meuble ->getCategory(),
+                'price'=> $meuble ->getPrice(),
+                'description'=> $meuble ->getDescription(),
+                'color'=> $meuble ->getColor(),
+                'dimension'=> $meuble ->getDimension(),
+                'material'=> $meuble ->getMaterial(),
+                'status'=> $meuble ->isStatus()    
             ];
         }
         // Return the $data array as a JSON response
         return $this->json($data);
     }
+
 
     // Route that returns data from the Meubles entity as JSON, but only specific fields
     #[Route('/get_all_card_meuble', name: 'get_card', methods: 'GET')]
