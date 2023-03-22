@@ -69,7 +69,9 @@ class MeubleController extends AbstractController
                 'title' => $meuble ->getTitle(),
                 'picture'=> $meuble ->getPicture(),
                 'category'=> $meuble ->getCategory(),
-                'price'=> $meuble ->getPrice()
+                'price'=> $meuble ->getPrice(),
+                'description'=> $meuble ->getDescription()
+
             ];
         }
         // Return the $data array as a JSON response
