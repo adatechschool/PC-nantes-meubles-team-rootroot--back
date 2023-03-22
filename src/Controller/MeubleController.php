@@ -23,6 +23,7 @@ class MeubleController extends AbstractController
     #[Route('/get_all_data_meuble', name: 'get_meuble', methods: 'GET')]
     public function index(ManagerRegistry $doctrine): Response
     {
+      
         $meubles = $doctrine
             ->getRepository(Meubles::class)
             ->findAll();
@@ -186,4 +187,99 @@ class MeubleController extends AbstractController
         return $this->json('Deleted a furniture successfully with id ' . $id);
     }
 
+    #[Route('/get_meuble_color/{color}', name: 'get_meuble_color', methods: 'GET')]
+    public function getMeublesByColor(string $color, ManagerRegistry $doctrine): Response
+    {
+
+        $meubles = $doctrine
+          ->getRepository(Meubles::class)
+          ->findBy(['color' => $color]);
+        
+        // Initialize an empty array to store data for each Meubles entity
+        $data = [];
+        
+        // Loop through each Meubles entity and add its data to the $data array
+        foreach ($meubles as $meuble) {
+            $data[] = [
+                'id' => $meuble->getId(),
+                'title' => $meuble->getTitle(),
+                'category' => $meuble->getCategory(),
+                'price' => $meuble->getPrice(),
+                'dimension' => $meuble->getDimension(),
+                'color' => $meuble->getColor(),
+                'material' => $meuble->getMaterial(),
+                'status' => $meuble->isStatus(),
+                'picture' => $meuble->getPicture(),
+                'description' => $meuble->getDescription(),
+            ];
+        }
+    
+        // Return the $data array as a JSON response
+        return $this->json($data);
+    }
+
+    #[Route('/get_meuble_price', name: 'get_meuble_price', methods: 'GET')]
+    public function getMeublesByPrice(ManagerRegistry $doctrine): Response
+    {
+  
+        $meubles = $doctrine
+        ->getRepository(Meubles::class)
+        ->findBy([], ['price' => 'ASC']);
+        
+        // Initialize an empty array to store data for each Meubles entity
+        $data = [];
+        
+        // Loop through each Meubles entity and add its data to the $data array
+        foreach ($meubles as $meuble) {
+            $data[] = [
+                'id' => $meuble->getId(),
+                'title' => $meuble->getTitle(),
+                'category' => $meuble->getCategory(),
+                'price' => $meuble->getPrice(),
+                'dimension' => $meuble->getDimension(),
+                'color' => $meuble->getColor(),
+                'material' => $meuble->getMaterial(),
+                'status' => $meuble->isStatus(),
+                'picture' => $meuble->getPicture(),
+                'description' => $meuble->getDescription(),
+            ];
+        }
+    
+        // Return the $data array as a JSON response
+        return $this->json($data);
+    }
+
+    #[Route('/get_meuble_category/{category}', name: 'get_meuble_category', methods: 'GET')]
+    public function getMeublesByCategory(string $category, ManagerRegistry $doctrine): Response
+    {
+
+        $meubles = $doctrine
+          ->getRepository(Meubles::class)
+          ->findBy(['category' => $category]);
+        
+        // Initialize an empty array to store data for each Meubles entity
+        $data = [];
+        
+        // Loop through each Meubles entity and add its data to the $data array
+        foreach ($meubles as $meuble) {
+            $data[] = [
+                'id' => $meuble->getId(),
+                'title' => $meuble->getTitle(),
+                'category' => $meuble->getCategory(),
+                'price' => $meuble->getPrice(),
+                'dimension' => $meuble->getDimension(),
+                'color' => $meuble->getColor(),
+                'material' => $meuble->getMaterial(),
+                'status' => $meuble->isStatus(),
+                'picture' => $meuble->getPicture(),
+                'description' => $meuble->getDescription(),
+            ];
+        }
+    
+        // Return the $data array as a JSON response
+        return $this->json($data);
+    }
+    
+
 }
+
