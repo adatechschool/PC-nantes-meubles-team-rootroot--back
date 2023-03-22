@@ -282,6 +282,33 @@ class MeubleController extends AbstractController
         return $this->json($data);
     }
     
+        // Route that returns all data from a single Meubles entity as JSON
+        #[Route('/get_meuble/{id}', name: 'get_meuble', methods: 'GET')]
+        public function getMeuble(int $id, ManagerRegistry $doctrine): Response
+        {
+            $meuble = $doctrine
+                ->getRepository(Meubles::class)
+                ->find($id);
+            if (!$meuble) {
+                // Return a 404 response if the Meubles entity with the given ID does not exist
+                throw $this->createNotFoundException('The Meuble with ID '.$id.' does not exist');
+            }
+            // Build an array of data for the Meubles entity
+            $data = [
+                'id' => $meuble->getId(),
+                'title' => $meuble->getTitle(),
+                'category' => $meuble->getCategory(),
+                'price' => $meuble->getPrice(),
+                'dimension' => $meuble->getDimension(),
+                'color'=> $meuble->getColor(),
+                'material'=> $meuble->getMaterial(),
+                'status'=> $meuble->isStatus(),
+                'picture'=> $meuble->getPicture(),
+                'description' => $meuble->getDescription(),
+            ];
+            // Return the $data array as a JSON response
+            return $this->json($data);
+        }
 
 }
 
