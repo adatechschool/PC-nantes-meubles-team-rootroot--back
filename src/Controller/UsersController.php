@@ -74,8 +74,8 @@ class UsersController extends AbstractController
         }
 
     //route qui permet de verifier si c'est bien l'admin (si oui, renvoie true)
-    #[Route('/get_admin/{email}/{password}', name: 'get_admin', methods: 'GET')]
-    public function getUserIfAdmin(string $email, string $password, ManagerRegistry $doctrine): Response
+    #[Route('/get_user/{email}/{password}', name: 'get_admin', methods: 'GET')]
+    public function getUserPrivilege(string $email, string $password, ManagerRegistry $doctrine): Response
     {
         $user = $doctrine
           ->getRepository(Users::class)
@@ -92,7 +92,9 @@ class UsersController extends AbstractController
                 'isAdmin'=>true,
             ];
         } else {
-            throw $this->createNotFoundException('This user is not an admin!');
+            $data[] = [
+                'isAdmin'=>false,
+            ];
         }
         return $this->json($data);
     }
