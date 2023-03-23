@@ -74,36 +74,27 @@ class UsersController extends AbstractController
         }
 
     //route qui permet de verifier si c'est bien l'admin (si oui, renvoie true)
-    #[Route('/get_admin/{email}', name: 'get_admin', methods: 'GET')]
-    public function getUserIfAdmin(string $email, ManagerRegistry $doctrine): Response
+    #[Route('/get_admin/{email}/{password}', name: 'get_admin', methods: 'GET')]
+    public function getUserIfAdmin(string $email, string $password, ManagerRegistry $doctrine): Response
     {
-
-        $users = $doctrine
+        $user = $doctrine
           ->getRepository(Users::class)
-          ->findBy(['email' => $email]);
-        
-        // Initialize an empty array to store data for each Meubles entity
-        $data = [];
-
-
-        
-        // Loop through each Users entity and add its data to the $data array
-        foreach ($users as $user) {
-            $data[] = [
-                'email' => $user->getEmail(),
-                'password' => $user->getPassword(),
-                'role' => $user->getRole(),
-            ];
+          ->findOneBy(['email' => $email, 'password' => $password]);
+        if (!$user) {
+            // Return a 404 response if the email does not exist 
+            throw $this->createNotFoundException('There is no user with this mail or password.');
         }
-
-        return $this->json($data);
-
-        /*if($data['role'] === "Admin") {
-            return new Response('true');
+        // Initialize an empty array to store data for response object 
+        $data = [];
+        //check if role is admin or not
+        if($user->getRole() === 'Admin') {
+            $data[] = [
+                'isAdmin'=>true,
+            ];
         } else {
-            return new Response('false');
-        }*/
-    
+            throw $this->createNotFoundException('This user is not an admin!');
+        }
+        return $this->json($data);
     }
 }
 
