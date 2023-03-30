@@ -32,21 +32,27 @@ Photos du projet
 ---------------
 Lien vers un post linkedIn montrant une vidéo du projet(https://www.linkedin.com/posts/kirakosiani_site-web-reactjs-activity-7046397530217054208-qEWu?utm_source=share&utm_medium=member_desktop)
 
-Admin
-<img width="1440" alt="Admin" src="https://user-images.githubusercontent.com/112544312/228829506-61c82e65-2074-4985-9d72-39929eaab15a.png">
+Homepage
+![homepage](https://user-images.githubusercontent.com/112544312/228829426-5aa82c03-2a96-4a7d-85ea-f259b295d35a.png)
+
+Products
+![products](https://user-images.githubusercontent.com/112544312/228829675-f53305a3-87ed-4a72-a934-62497ce67925.png)
+
+Product detail
+![productdetail](https://user-images.githubusercontent.com/112544312/228829621-91083f13-9e78-4b17-b450-ea8697e6cd13.png)
 
 Cart
 ![cart](https://user-images.githubusercontent.com/112544312/228829341-3c6a9eab-a0fc-4573-8c3d-059ea2425a86.png)
 
-Homepage
-![homepage](https://user-images.githubusercontent.com/112544312/228829426-5aa82c03-2a96-4a7d-85ea-f259b295d35a.png)
-
 Login
 ![login](https://user-images.githubusercontent.com/112544312/228829554-ab2ffdba-6dc3-4086-9968-05c91df6c3c0.png)
 
-Product detail
-![productdetail](https://user-images.githubusercontent.com/112544312/228829621-91083f13-9e78-4b17-b450-ea8697e6cd13.png)
-()
+Admin
+<img width="1440" alt="Admin" src="https://user-images.githubusercontent.com/112544312/228829506-61c82e65-2074-4985-9d72-39929eaab15a.png">
 
-Products
-![products](https://user-images.githubusercontent.com/112544312/228829675-f53305a3-87ed-4a72-a934-62497ce67925.png)
+
+
+
+
+
+
